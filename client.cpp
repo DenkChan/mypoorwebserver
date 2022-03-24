@@ -2,10 +2,20 @@
 #include <arpa/inet.h>
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 #include <unistd.h>
 
+void errif(bool condition, const char* msg){
+	if(condition == true){
+		perror(msg);
+		exit(1);
+	}
+}
+
 int main(int argc, char** argv){
+	int ret = -1;
 	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	char buf[1024];
 	struct sockaddr_in serv_addr;
 	bzero(&serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
@@ -13,6 +23,19 @@ int main(int argc, char** argv){
 	serv_addr.sin_port = htons(8888);
 
 	connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr));
+	while(1){
+		bzero(buf, sizeof(buf));
+		scanf("%s", buf);
+		ret = send(sockfd, buf, sizeof(buf), 0);
+		bzero(buf, sizeof(buf));
+		ret = recv(sockfd, buf, sizeof(buf), 0);
+		if(ret > 0)
+			printf("server:%s\n", buf);
+		else if(ret < 0){
+			errif(true, "receive message error!");
+			break;
+		}
+	}
 	close(sockfd);
 	return 0;
 }
