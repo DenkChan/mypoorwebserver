@@ -1,3 +1,10 @@
+/*
+ * @Author: Limer
+ * @Date: 2022-03-27 16:27:28
+ * @LastEditors: Limer
+ * @LastEditTime: 2022-03-27 16:32:21
+ * @Description: 
+ */
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <cstring>
@@ -22,7 +29,8 @@ int main(int argc, char** argv){
 	serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	serv_addr.sin_port = htons(8888);
 
-	connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr));
+	ret = connect(sockfd, (sockaddr*)&serv_addr, sizeof(serv_addr));
+	errif(ret == -1, "fail to connect server!");
 	while(1){
 		bzero(buf, sizeof(buf));
 		scanf("%s", buf);
