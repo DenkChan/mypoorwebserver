@@ -6,7 +6,8 @@ set(source
     src/InetAddress.cpp
     src/Socket.cpp
     src/util.cpp
-    src/server2.cpp
+    src/server.cpp
+    src/Channel.cpp
 )
 
 add_executable(server ${source})
