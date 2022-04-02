@@ -1,3 +1,0 @@
-/home/limer/mypoorserver/build/CMakeFiles/rebuild_cache.dir
-/home/limer/mypoorserver/build/CMakeFiles/edit_cache.dir
-/home/limer/mypoorserver/build/CMakeFiles/server.dir

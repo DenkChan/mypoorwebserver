@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/server.dir/src/Epoll.cpp.o CMakeFiles/server.dir/src/InetAddress.cpp.o CMakeFiles/server.dir/src/Socket.cpp.o CMakeFiles/server.dir/src/util.cpp.o CMakeFiles/server.dir/src/server.cpp.o CMakeFiles/server.dir/src/Channel.cpp.o  -o server 
