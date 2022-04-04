@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-03 15:53:26
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-04 14:20:38
+ * @LastEditTime: 2022-04-04 14:37:11
  * @Description:
  */
 #include "Server.h"
@@ -35,18 +35,20 @@ Server::~Server() {}
 void Server::handleReadEvent(int fd) {
   char buf[READ_BUFF_SIZE];
   while (true) {
-    bzero(buf, READ_BUFF_SIZE);
-    ssize_t read_bytes = read(fd, buf, READ_BUFF_SIZE);
+    ::bzero(buf, READ_BUFF_SIZE);
+    ssize_t read_bytes = ::read(fd, buf, READ_BUFF_SIZE);
     if (read_bytes > 0) {
-      printf("from: %d, %s\n", fd, buf);
-    } else if (read_bytes == -1 && errno == EAGAIN || errno == EWOULDBLOCK) {
-      printf("finish reading\n");
+      ::printf("from: %d, %s\n", fd, buf);
+      read_bytes = write(fd, buf, READ_BUFF_SIZE);
+      errif(read_bytes == -1, "fail to send message to the client!\n");
+    } else if (read_bytes == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+      ::printf("finish reading\n");
       break;
     } else if (read_bytes == -1 && errno == EINTR) {
       continue;
     } else if (read_bytes == 0) {
-      printf("client close!\n");
-      close(fd);
+      ::printf("client close!\n");
+      ::close(fd);
       break;
     }
   }
