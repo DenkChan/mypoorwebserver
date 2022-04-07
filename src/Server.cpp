@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-03 15:53:26
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-06 21:59:00
+ * @LastEditTime: 2022-04-07 13:24:09
  * @Description:
  */
 #include "Server.h"
@@ -28,6 +28,11 @@ Server::Server(Eventloop* lp) : _loop(lp) {
 
 Server::~Server() { delete acpt; }
 
+/**
+ * @description: 处理读事件
+ * @param {int} fd
+ * @return {*}
+ */
 void Server::handleReadEvent(int fd) {
     char buf[READ_BUFF_SIZE];
     while (true) {
@@ -51,6 +56,12 @@ void Server::handleReadEvent(int fd) {
     }
 }
 
+/**
+ * @description:
+ * 建立新的fd保存新的连接，并且为新的连接设定Channel，以及其对应的回调函数。
+ * @param {Socket*} serv_sock
+ * @return {*}
+ */
 void Server::newConnection(Socket* serv_sock) {
     InetAddress* clnt_addr = new InetAddress();
     Socket* clnt_sock = new Socket(serv_sock->accept(clnt_addr));
@@ -61,6 +72,7 @@ void Server::newConnection(Socket* serv_sock) {
     Channel* clntChannel = new Channel(_loop, clnt_sock->get_fd());
     std::function<void()> cb =
         std::bind(&Server::handleReadEvent, this, clnt_sock->get_fd());
+    // 添加channel到Epoll_event.
     clntChannel->setCallback(cb);
     clntChannel->enableReading();
 }

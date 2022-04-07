@@ -2,8 +2,8 @@
  * @Author: Limer
  * @Date: 2022-04-06 21:35:04
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-06 21:42:31
- * @Description:
+ * @LastEditTime: 2022-04-07 13:37:21
+ * @Description: 作为一个功能类，负责建立连接并且设定Channel以及后续的回调函数。
  */
 #include "Acceptor.h"
 #include "Channel.h"
@@ -11,6 +11,9 @@
 #include "InetAddress.h"
 #include "Socket.h"
 #include "util.h"
+
+// Acceptor的回调函数由对象构造后上层调用设定，其自己会构造一个socket对象并建立与其对应的Channel，
+// Channel设定的回调函数为上层设定的回调函数。
 
 Acceptor::Acceptor(Eventloop* _loop) : loop(_loop) {
     sock = new Socket();
