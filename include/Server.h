@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-03 15:49:40
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-10 16:46:17
+ * @LastEditTime: 2022-04-10 18:28:29
  * @Description:
  */
 #ifndef __SERVER_H__
@@ -23,8 +23,7 @@ class Server {
     Server(Eventloop*);
     ~Server();
 
-    void handleReadEvent(int);
-    void newConnection(Socket* serv_sock);
-    void deleteConnection(Socket* sock);
+    void newConnection(Socket*);
+    void deleteConnection(Socket*);
 };
 #endif

@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-08 13:12:07
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-10 16:42:28
+ * @LastEditTime: 2022-04-10 17:02:36
  * @Description:
  */
 #include "Connection.h"
@@ -34,8 +34,8 @@ void Connection::echo(int sockfd) {
         ssize_t read_bytes = read(sockfd, buf, READ_BUF_SIZE);
         if (read_bytes > 0) {
             printf("from: %d, %s\n", sockfd, buf);
-        } else if (read_bytes == -1 && errno == EAGAIN ||
-                   errno == EWOULDBLOCK) {
+        } else if (read_bytes == -1 &&
+                   (errno == EAGAIN || errno == EWOULDBLOCK)) {
             printf("finish reading\n");
             break;
         } else if (read_bytes == -1 && errno == EINTR) {

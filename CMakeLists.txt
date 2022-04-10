@@ -10,6 +10,7 @@ set(source
     src/Server.cpp
     src/EventLoop.cpp
     src/Acceptor.cpp
+    src/Connection.cpp
     server.cpp
 )
 
