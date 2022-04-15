@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-07 21:49:36
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-10 16:27:40
+ * @LastEditTime: 2022-04-11 13:32:22
  * @Description:
  */
 #ifndef __CONNECTION_H__
@@ -13,11 +13,13 @@ class Eventloop;
 class InetAddress;
 class Socket;
 class Channel;
+class Buffer;
 class Connection {
    private:
     Eventloop* loop;
     Socket* sock;
     Channel* connChl;
+    Buffer* readbuf;
     std::function<void(Socket*)> deleteConnectionCallback;
 
    public:
