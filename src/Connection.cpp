@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-08 13:12:07
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-11 13:48:05
+ * @LastEditTime: 2022-04-25 22:03:30
  * @Description:
  */
 #include "Connection.h"
@@ -42,6 +42,7 @@ void Connection::echo(int sockfd) {
             printf("message from client:%d, length:%ld, %s\n", sockfd,
                    readbuf->size(), readbuf->c_str());
             printf("finish reading\n");
+            write(sockfd, readbuf->c_str(), readbuf->size() + 1);
             readbuf->clear();
             break;
         } else if (read_bytes == -1 && errno == EINTR) {

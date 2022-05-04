@@ -2,17 +2,24 @@
  * @Author: Limer
  * @Date: 2022-04-03 15:35:16
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-10 18:23:43
+ * @LastEditTime: 2022-04-24 20:16:45
  * @Description:
  */
 #include "EventLoop.h"
 #include <vector>
 #include "Channel.h"
 #include "Epoll.h"
+#include "ThreadPool.h"
 
-Eventloop::Eventloop() : ep(nullptr), quit(false) { ep = new Epoll(); }
+Eventloop::Eventloop() : ep(nullptr), threadpoll(nullptr), quit(false) {
+    ep = new Epoll();
+    threadpoll = new ThreadPool();
+}
 
-Eventloop::~Eventloop() { delete ep; }
+Eventloop::~Eventloop() {
+    delete ep;
+    delete threadpoll;
+}
 
 void Eventloop::loop() {
     while (!quit) {
@@ -25,3 +32,7 @@ void Eventloop::loop() {
 }
 
 void Eventloop::updateChannel(Channel* ch) { ep->updateChannel(ch); }
+
+void Eventloop::addThread(std::function<void()> callback) {
+    threadpoll->add(callback);
+}

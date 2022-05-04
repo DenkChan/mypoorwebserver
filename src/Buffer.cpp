@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-11 13:19:48
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-15 19:23:10
+ * @LastEditTime: 2022-04-25 21:38:32
  * @Description:
  */
 #include "Buffer.h"
@@ -20,3 +20,5 @@ void Buffer::getline() {
     buf.clear();
     std::getline(std::cin, buf);
 }
+
+void Buffer::setBuf(const std::string& str) { buf = str; }

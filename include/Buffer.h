@@ -2,7 +2,7 @@
  * @Author: Limer
  * @Date: 2022-04-11 13:16:19
  * @LastEditors: Limer
- * @LastEditTime: 2022-04-15 17:00:53
+ * @LastEditTime: 2022-04-25 21:37:59
  * @Description:
  */
 #ifndef __BUFFER_H__
@@ -18,5 +18,6 @@ class Buffer {
     const char* c_str();
     void clear();
     void getline();
+    void setBuf(const std::string&);
 };
 #endif
